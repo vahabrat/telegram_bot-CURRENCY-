@@ -70,7 +70,7 @@ def get_currency(message):
 
 
 @bot.message_handler(commands = ['history'])
-def print_current(message):
+def get_history(message):
     input_quantity = ''.join(re.findall('(?<= for\s)\d+', message.text) or re.findall('\d+(?=[\s]days)', message.text))
     date = datetime.strptime(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), '%Y-%m-%d %H:%M:%S').date().isoformat()
 
@@ -99,7 +99,12 @@ def print_current(message):
     else:
         bot.send_message(message.chat.id, 'Введите количество дней!')
 
-#Зациклить бота
-bot.polling()
-#if __name__ == '__main__':
-#    db.init_db()
+def print_current(currency, value):
+    return str(currency)+": "+str(value)
+
+
+if __name__ == '__main__':
+    db.init_db()
+    bot.polling()
+
+
