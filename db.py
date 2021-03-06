@@ -42,12 +42,12 @@ def get_recent_request_data(user_id):
     conn = get_connection()
     c = conn.cursor()
     c.execute('SELECT  currency_json_content FROM recent_currency where user_id = ?', (user_id,))
-    res = c.fetchone()
+    res = c.fetchone() # method returns a single record or None if no more rows are available.
     return res
 
 def get_recent_request_time(user_id):
     conn = get_connection()
     c = conn.cursor()
-    c.execute('SELECT request_time FROM recent_currency WHERE user_id = ?', (user_id,))
-    res = c.fetchone()
+    c.execute('SELECT request_time FROM recent_currency WHERE user_id = ? ORDER BY request_time DESC LIMIT 1', (user_id,))
+    res = c.fetchone() # method returns a single record or None if no more rows are available.
     return res
